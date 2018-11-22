@@ -1,4 +1,10 @@
-set(CATCH_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/extern/catch)
-add_library(Catch2::Catch IMPORTED INTERFACE)
-set_property(Catch2::Catch PROPERTY INTERFACE_INCLUDE_DIRECTORIES
-             "${CATCH_INCLUDE_DIR}")
+find_package(Catch2 REQUIRED)
+
+add_executable(tests tests-main.cpp
+                     tests-find_diff.cpp)
+target_link_libraries(tests PUBLIC Catch2::Catch2)
+target_link_libraries(tests PUBLIC find_diff)
+
+include(CTest)
+include(Catch)
+catch_discover_tests(tests)

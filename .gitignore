@@ -1,6 +1,6 @@
 # Project
-build/
-extern/
+build
+lib/
 
 # Vim
 *.swp *.swo
