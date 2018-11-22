@@ -21,4 +21,20 @@ InputIter find_diff(InputIter first, InputIter last)
     }
 }
 
+template<typename InputIter, typename BinCmp>
+InputIter find_diff(InputIter first, InputIter last, BinCmp cmp)
+{
+    if (std::distance(first, last) < 3)
+        return last;
+
+    if (cmp(*first, *(first + 1))) {
+        auto it = first + 2;
+        while (it != last && cmp(*it, *first))
+            ++it;
+        return it;
+    } else {
+        return cmp(*first, *(first + 2)) ? first + 1 : first;
+    }
+}
+
 #endif // FIND_DIFF_H

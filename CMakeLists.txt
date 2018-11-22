@@ -14,7 +14,7 @@ else()
     add_compile_options(-Wall -Wextra -Wpedantic)
 endif()
 
-include_directories(include)
+include_directories(${PROJECT_SOURCE_DIR}/include)
 
 add_subdirectory(src)
 add_subdirectory(test)

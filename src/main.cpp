@@ -1,7 +1,7 @@
 #include <iostream>
 #include <vector>
 
-#include "find_diff.h"
+#include <find_diff.h>
 
 int main()
 {
