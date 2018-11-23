@@ -19,8 +19,12 @@ public:
     explicit Program(Program_data& data)
         : name{std::move(data.name)}, weight{data.weight} { }
 
-    Program(std::string n, Program* p)
+    Program(std::string& n, Program* p)
         : name{std::move(n)}, parent{p} { }
+
+
+    void set_weight(int w)      { weight = w; }
+    void set_parent(Program* p) { parent = p; }
 
     auto get_name()   const -> std::string_view
                                             { return std::string_view{name}; }
