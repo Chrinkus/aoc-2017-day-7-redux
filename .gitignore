@@ -3,7 +3,8 @@ build
 lib/
 
 # Vim
-*.swp *.swo
+*.swp
+*.swo
 
 # MacOS
 .DS_Store
