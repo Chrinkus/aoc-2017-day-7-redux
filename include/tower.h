@@ -15,10 +15,14 @@ public:
 
     Program* add_program(Program_data& data);
     Program* add_program(std::string& n, Program* p);
+    Program* get_base() const { return base; }
+    void set_base();
+
     size_t tower_size() const { return tower.size(); }
 private:
 
     std::vector<Program> tower;
+    Program* base = nullptr;
 };
 
 class Tower_factory {

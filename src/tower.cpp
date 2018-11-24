@@ -14,6 +14,14 @@ Program* Tower::add_program(std::string& n, Program* p)
     return &tower.back();
 }
 
+void Tower::set_base()
+{
+    auto p = tower.data();
+    while (p->get_parent())
+        p = p->get_parent();
+    base = p;
+}
+
 Tower_factory::Tower_factory(std::istream& is)
 {
     std::string line;
@@ -45,6 +53,7 @@ Tower Tower_factory::create_tower()
             }
         }
     }
+    tower.set_base();
     return tower;
 }
 

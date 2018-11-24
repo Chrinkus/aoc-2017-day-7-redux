@@ -26,3 +26,8 @@ Program_data::Program_data(const std::string& line)
                 });
     }
 }
+
+std::ostream& operator<<(std::ostream& os, const Program& prog)
+{
+    return os << prog.get_name() << " (" << prog.get_weight() << ')';
+}

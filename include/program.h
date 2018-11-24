@@ -1,6 +1,7 @@
 #ifndef PROGRAM_H
 #define PROGRAM_H
 
+#include <iostream>
 #include <string>
 #include <vector>
 #include <string_view>
@@ -26,8 +27,9 @@ public:
     void set_weight(int w)      { weight = w; }
     void set_parent(Program* p) { parent = p; }
 
-    auto get_name()   const -> std::string_view
-                                            { return std::string_view{name}; }
+    std::string_view get_name() const { return std::string_view{name}; }
+    //auto get_name()   const -> std::string_view
+    //                                        { return std::string_view{name}; }
     auto get_weight() const -> int          { return weight; }
     auto get_parent() const -> Program*     { return parent; }
     auto get_num_children() const -> size_t { return children.size(); }
@@ -38,5 +40,7 @@ private:
     Program* parent = nullptr;
     std::vector<Program*> children;
 };
+
+std::ostream& operator<<(std::ostream& os, const Program& prog);
 
 #endif // PROGRAM_H

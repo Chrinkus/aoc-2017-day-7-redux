@@ -3,6 +3,7 @@
 #include <program.h>
 
 #include <string>
+#include <string_view>
 
 TEST_CASE("Program_data constructs from expected format", "[Program_data]") {
 
