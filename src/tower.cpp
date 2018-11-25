@@ -1,16 +1,15 @@
 #include <tower.h>
-#include <algorithm>
 #include <iostream>
 
 Program* Tower::add_program(Program_data& data)
 {
-    tower.emplace_back(Program{data});
+    tower.emplace_back(data);
     return &tower.back();
 }
 
-Program* Tower::add_program(std::string& n, Program* p)
+Program* Tower::add_program(std::string& n)
 {
-    tower.emplace_back(Program{n, p});
+    tower.emplace_back(n);
     return &tower.back();
 }
 
@@ -22,19 +21,9 @@ void Tower::set_base()
     base = p;
 }
 
-void Tower::calc_above_weights(Program* p)
+void Tower::establish_weights()
 {
-    std::for_each(std::begin(p->get_children()), std::end(p->get_children()),
-            [this, p](Program* p_child) {
-                this->calc_above_weights(p_child);
-                p->inc_above_weight(p_child->total_weight());
-            });
-    /*
-    for (const auto p_child : p->get_children()) {
-        calc_above_weights(p_child);
-        p->inc_above_weight(p_child->total_weight());
-    }
-    */
+    base->calc_above_weight();
 }
 
 void Tower::print_tower() const
@@ -49,7 +38,7 @@ Tower_factory::Tower_factory(std::istream& is)
 {
     std::string line;
     while (std::getline(is, line))
-        data_tbl.emplace_back(Program_data{line});
+        data_tbl.emplace_back(line);
 }
 
 Tower Tower_factory::create_tower()
@@ -68,17 +57,15 @@ Tower Tower_factory::create_tower()
 
         for (auto& name : data.child_names) {   
             auto p_child = fetch_program(name);
-            if (p_child)
-                p_child->set_parent(p_prog);
-            else {
-                p_child = tower.add_program(name, p_prog);
+            if (!p_child) {
+                p_child = tower.add_program(name);
                 location_tbl[p_child->get_name()] = p_child;
             }
             p_prog->add_child(p_child);
         }
     }
     tower.set_base();
-    tower.calc_above_weights(tower.get_base());
+    tower.establish_weights();
     return tower;
 }
 

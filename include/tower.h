@@ -14,11 +14,11 @@ public:
     explicit Tower(size_t size) { tower.reserve(size); }
 
     Program* add_program(Program_data& data);
-    Program* add_program(std::string& n, Program* p);
+    Program* add_program(std::string& n);
     Program* get_base() const { return base; }
 
     void set_base();
-    void calc_above_weights(Program* p);
+    void establish_weights();
 
     size_t tower_size() const { return tower.size(); }
 

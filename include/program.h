@@ -19,8 +19,8 @@ public:
     explicit Program(Program_data& data)
         : name{std::move(data.name)}, weight{data.weight} { }
 
-    Program(std::string& n, Program* p)
-        : name{std::move(n)}, parent{p} { }
+    explicit Program(std::string& n)
+        : name{std::move(n)} { }
 
     // special access
     int total_weight()      const { return weight + above_weight; }
@@ -38,17 +38,16 @@ public:
     // member modifying
     void set_weight(int w) { weight = w; }
     void set_parent(Program* p) { parent = p; }
-
     void add_child(Program* p);
     void calc_above_weight();
-    void inc_above_weight(int w) { above_weight += w; }
 
 private:
     std::string name;
-    int weight = 0;
+    int weight       = 0;
     int above_weight = 0;
-    bool balanced = false;
-    Program* parent = nullptr;
+    bool balanced    = false;
+    Program* parent  = nullptr;
+
     std::vector<Program*> children;
 };
 
