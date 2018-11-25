@@ -16,6 +16,7 @@ public:
     Program* add_program(Program_data& data);
     Program* add_program(std::string& n, Program* p);
     Program* get_base() const { return base; }
+
     void set_base();
     void calc_above_weights(Program* p);
 

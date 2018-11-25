@@ -39,6 +39,7 @@ public:
     bool is_balanced() const   { return balanced; }
 
     const std::vector<Program*>& get_children() const { return children; }
+    size_t num_children() const { return children.size(); }
     void add_child(Program* p) { children.push_back(p); }
 
 private:

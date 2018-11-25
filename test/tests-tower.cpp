@@ -40,5 +40,6 @@ TEST_CASE("Tower_factory populates table from test input", "[Tower_factory]") {
     auto t = tf.create_tower();
     REQUIRE(t.tower_size() == 13);
     REQUIRE(t.get_base()->get_name() == "tknk");
+    REQUIRE(t.get_base()->num_children() == 3);
     REQUIRE(t.get_base()->get_above_weight() == 737);
 }
