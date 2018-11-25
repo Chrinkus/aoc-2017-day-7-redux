@@ -30,7 +30,7 @@ TEST_CASE("Program constructs from expected input", "[Program]") {
     REQUIRE(p_short.get_name() == "qwert");
     REQUIRE(p_short.get_weight() == 37);
     REQUIRE(p_short.get_parent() == nullptr);
-    REQUIRE(p_short.get_num_children() == 0);
+    REQUIRE(p_short.get_children().size() == 0);
 
     auto s_long = std::string{"wasdf (53) -> yuiop, ghjkl, vbnmc"};
     auto pd_long = Program_data{s_long};
@@ -39,5 +39,5 @@ TEST_CASE("Program constructs from expected input", "[Program]") {
     REQUIRE(p_long.get_name() == "wasdf");
     REQUIRE(p_long.get_weight() == 53);
     REQUIRE(p_long.get_parent() == nullptr);
-    REQUIRE(p_short.get_num_children() == 0);
+    REQUIRE(p_short.get_children().size() == 0);
 }

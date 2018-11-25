@@ -1,4 +1,6 @@
 #include <tower.h>
+#include <algorithm>
+#include <iostream>
 
 Program* Tower::add_program(Program_data& data)
 {
@@ -19,6 +21,29 @@ void Tower::set_base()
         p = p->get_parent();
     base = p;
 }
+
+void Tower::calc_above_weights(Program* p)
+{
+    std::for_each(std::begin(p->get_children()), std::end(p->get_children()),
+            [this, p](Program* p_child) {
+                this->calc_above_weights(p_child);
+                p->inc_above_weight(p_child->total_weight());
+            });
+    /*
+    for (const auto p_child : p->get_children()) {
+        calc_above_weights(p_child);
+        p->inc_above_weight(p_child->total_weight());
+    }
+    */
+}
+
+void Tower::print_tower() const
+{
+    for (const auto& p : tower)
+        std::cout << p << '\n';
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
 
 Tower_factory::Tower_factory(std::istream& is)
 {
@@ -49,9 +74,11 @@ Tower Tower_factory::create_tower()
                 p_child = tower.add_program(name, p_prog);
                 location_tbl[p_child->get_name()] = p_child;
             }
+            p_prog->add_child(p_child);
         }
     }
     tower.set_base();
+    tower.calc_above_weights(tower.get_base());
     return tower;
 }
 

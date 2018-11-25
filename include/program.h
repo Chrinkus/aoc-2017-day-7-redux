@@ -28,7 +28,7 @@ public:
     void set_weight(int w) { weight = w; }
 
     int get_above_weight() const { return above_weight; }
-    void set_above_weight(int w) { above_weight = w; }
+    void inc_above_weight(int w) { above_weight += w; }
 
     int total_weight() const { return weight + above_weight; }
 
@@ -38,7 +38,8 @@ public:
     void is_balanced(bool bal) { balanced = bal; }
     bool is_balanced() const   { return balanced; }
 
-    size_t get_num_children() const { return children.size(); }
+    const std::vector<Program*>& get_children() const { return children; }
+    void add_child(Program* p) { children.push_back(p); }
 
 private:
     std::string name;

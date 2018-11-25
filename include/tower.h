@@ -17,8 +17,11 @@ public:
     Program* add_program(std::string& n, Program* p);
     Program* get_base() const { return base; }
     void set_base();
+    void calc_above_weights(Program* p);
 
     size_t tower_size() const { return tower.size(); }
+
+    void print_tower() const;
 private:
 
     std::vector<Program> tower;

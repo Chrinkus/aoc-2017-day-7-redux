@@ -29,5 +29,9 @@ Program_data::Program_data(const std::string& line)
 
 std::ostream& operator<<(std::ostream& os, const Program& prog)
 {
-    return os << prog.get_name() << " (" << prog.get_weight() << ')';
+    os << prog.get_name() << " (" << prog.get_weight() << ") [";
+    for (const auto p_child : prog.get_children())
+        os << p_child->get_name() << ' ';
+    os << "] Above: (" << prog.get_above_weight() << ')';
+    return os;
 }
