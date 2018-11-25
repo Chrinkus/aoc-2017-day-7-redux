@@ -4,7 +4,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <string_view>
 
 struct Program_data {
 public:
@@ -23,20 +22,29 @@ public:
     Program(std::string& n, Program* p)
         : name{std::move(n)}, parent{p} { }
 
+    const std::string& get_name() const { return name; }
 
-    void set_weight(int w)      { weight = w; }
+    int get_weight() const { return weight; }
+    void set_weight(int w) { weight = w; }
+
+    int get_above_weight() const { return above_weight; }
+    void set_above_weight(int w) { above_weight = w; }
+
+    int total_weight() const { return weight + above_weight; }
+
+    Program* get_parent() const { return parent; }
     void set_parent(Program* p) { parent = p; }
 
-    std::string_view get_name() const { return std::string_view{name}; }
-    //auto get_name()   const -> std::string_view
-    //                                        { return std::string_view{name}; }
-    auto get_weight() const -> int          { return weight; }
-    auto get_parent() const -> Program*     { return parent; }
-    auto get_num_children() const -> size_t { return children.size(); }
+    void is_balanced(bool bal) { balanced = bal; }
+    bool is_balanced() const   { return balanced; }
+
+    size_t get_num_children() const { return children.size(); }
 
 private:
     std::string name;
     int weight = 0;
+    int above_weight = 0;
+    bool balanced = false;
     Program* parent = nullptr;
     std::vector<Program*> children;
 };
