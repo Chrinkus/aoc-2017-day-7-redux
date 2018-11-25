@@ -41,3 +41,42 @@ TEST_CASE("Program constructs from expected input", "[Program]") {
     REQUIRE(p_long.get_parent() == nullptr);
     REQUIRE(p_short.get_children().size() == 0);
 }
+
+TEST_CASE("Program modifying functions work as expected", "[Program]") {
+
+    auto pd_base    = Program_data{"flack (9) -> quimm, larek, chowo"};
+    auto pd_one     = Program_data{"quimm (3) -> pawld, trimm"};
+    auto pd_two     = Program_data{"larek (4)"};
+    auto pd_three   = Program_data{"chowo (3)"};
+    auto pd_four    = Program_data{"pawld (7)"};
+    auto pd_five    = Program_data{"trimm (7)"};
+
+    auto base    = Program{pd_base};
+    auto c_one   = Program{pd_one};
+    auto c_two   = Program{pd_two};
+    auto c_three = Program{pd_three};
+    auto c_four  = Program{pd_four};
+    auto c_five  = Program{pd_five};
+
+    REQUIRE(base.num_children() == 0);
+
+    base.add_child(&c_one);
+    base.add_child(&c_two);
+    base.add_child(&c_three);
+    c_one.add_child(&c_four);
+    c_one.add_child(&c_five);
+
+    SECTION("add child adds to children and sets their parent") {
+        REQUIRE(base.num_children() == 3);
+        REQUIRE(c_one.get_parent() == &base);
+        REQUIRE(c_five.get_parent() == &c_one);
+    }
+
+    REQUIRE(base.get_above_weight() == 0);
+
+    base.calc_above_weight();
+
+    SECTION("calc_above_weight works as expected") {
+        REQUIRE(base.get_above_weight() == 24);
+    }
+}

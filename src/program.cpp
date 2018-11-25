@@ -2,6 +2,7 @@
 
 #include <regex>
 #include <algorithm>
+#include <numeric>
 
 using Reg_it = std::regex_iterator<std::string::iterator>;
 
@@ -27,6 +28,28 @@ Program_data::Program_data(const std::string& line)
     }
 }
 
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+
+void Program::add_child(Program* p)
+{
+    children.push_back(p);
+    p->set_parent(this);
+}
+
+void Program::calc_above_weight()
+{
+    std::for_each(std::begin(children), std::end(children),
+            [](Program*& p) { p->calc_above_weight(); });
+
+    above_weight = std::accumulate(std::begin(children),
+                                   std::end(children),
+                                   0,
+                                   [](int sum, const Program* p) {
+                                       return sum + p->total_weight();
+                                   });
+}
+
+// * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
 std::ostream& operator<<(std::ostream& os, const Program& prog)
 {
     os << prog.get_name() << " (" << prog.get_weight() << ") [";

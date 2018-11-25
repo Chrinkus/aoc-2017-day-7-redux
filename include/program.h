@@ -22,25 +22,26 @@ public:
     Program(std::string& n, Program* p)
         : name{std::move(n)}, parent{p} { }
 
-    const std::string& get_name() const { return name; }
+    // special access
+    int total_weight()      const { return weight + above_weight; }
+    bool is_balanced()      const { return balanced; }
+    size_t num_children()   const { return children.size(); }
 
-    int get_weight() const { return weight; }
+    // member access
+    auto get_name()         const -> const std::string& { return name; }
+    auto get_weight()       const -> int { return weight; }
+    auto get_above_weight() const -> int { return above_weight; }
+    auto get_parent()       const -> Program* { return parent; }
+    auto get_children()     const -> const std::vector<Program*>&
+                                     { return children; }
+
+    // member modifying
     void set_weight(int w) { weight = w; }
-
-    int get_above_weight() const { return above_weight; }
-    void inc_above_weight(int w) { above_weight += w; }
-
-    int total_weight() const { return weight + above_weight; }
-
-    Program* get_parent() const { return parent; }
     void set_parent(Program* p) { parent = p; }
 
-    void is_balanced(bool bal) { balanced = bal; }
-    bool is_balanced() const   { return balanced; }
-
-    const std::vector<Program*>& get_children() const { return children; }
-    size_t num_children() const { return children.size(); }
-    void add_child(Program* p) { children.push_back(p); }
+    void add_child(Program* p);
+    void calc_above_weight();
+    void inc_above_weight(int w) { above_weight += w; }
 
 private:
     std::string name;
