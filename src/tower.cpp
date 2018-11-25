@@ -1,7 +1,5 @@
 #include <tower.h>
 
-#include <string>
-
 Program* Tower::add_program(Program_data& data)
 {
     tower.emplace_back(Program{data});
@@ -57,7 +55,7 @@ Tower Tower_factory::create_tower()
     return tower;
 }
 
-Program* Tower_factory::fetch_program(std::string_view name)
+Program* Tower_factory::fetch_program(const std::string& name)
 {
     auto& p = location_tbl[name];
     return p ? p : nullptr;

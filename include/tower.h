@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
-#include <string_view>
+#include <string>
 
 #include <program.h>
 
@@ -32,10 +32,10 @@ public:
     Tower create_tower();
     size_t data_size() const { return data_tbl.size(); }
 private:
-    Program* fetch_program(std::string_view name);
+    Program* fetch_program(const std::string& name);
 
     std::vector<Program_data> data_tbl;
-    std::unordered_map<std::string_view,Program*> location_tbl;
+    std::unordered_map<std::string,Program*> location_tbl;
 };
 
 #endif // TOWER_H
