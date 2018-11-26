@@ -52,7 +52,8 @@ void Program::calc_above_weight()
 void Program::check_balance()
 {
     if (children.size() == 0 ||
-            above_weight == children.size() * children.front()->get_weight())
+            above_weight == static_cast<int>(children.size()) *
+                children.front()->get_weight())
         balanced = true;
     else
         balanced = false;
