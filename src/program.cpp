@@ -39,7 +39,7 @@ void Program::add_child(Program* p)
 void Program::calc_above_weight()
 {
     std::for_each(std::begin(children), std::end(children),
-            [](Program*& p) { p->calc_above_weight(); });
+            [](Program* p) { p->calc_above_weight(); });
 
     above_weight = std::accumulate(std::begin(children),
                                    std::end(children),
@@ -47,6 +47,15 @@ void Program::calc_above_weight()
                                    [](int sum, const Program* p) {
                                        return sum + p->total_weight();
                                    });
+}
+
+void Program::check_balance()
+{
+    if (children.size() == 0 ||
+            above_weight == children.size() * children.front()->get_weight())
+        balanced = true;
+    else
+        balanced = false;
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 

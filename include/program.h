@@ -40,6 +40,7 @@ public:
     void set_parent(Program* p) { parent = p; }
     void add_child(Program* p);
     void calc_above_weight();
+    void check_balance();
 
 private:
     std::string name;

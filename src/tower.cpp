@@ -1,5 +1,6 @@
 #include <tower.h>
 #include <iostream>
+#include <algorithm>
 
 Program* Tower::add_program(Program_data& data)
 {
@@ -24,6 +25,21 @@ void Tower::set_base()
 void Tower::establish_weights()
 {
     base->calc_above_weight();
+}
+
+void Tower::establish_balance()
+{
+    for (auto& program : tower)
+        program.check_balance();
+}
+
+const Program* Tower::find_imbalance_source(const Program* p)
+{
+    for (const auto p_child : p->get_children())
+        if (!p_child->is_balanced())
+            return find_imbalance_source(p_child);
+
+    return p;
 }
 
 void Tower::print_tower() const
@@ -66,6 +82,7 @@ Tower Tower_factory::create_tower()
     }
     tower.set_base();
     tower.establish_weights();
+    tower.establish_balance();
     return tower;
 }
 

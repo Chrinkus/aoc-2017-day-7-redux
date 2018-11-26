@@ -3,7 +3,7 @@
 #include <tower.h>
 
 #include <sstream>
-
+#include <fstream>
 
 TEST_CASE("Tower_factory populates table from min input", "[Tower_factory]") {
 

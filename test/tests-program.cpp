@@ -79,4 +79,15 @@ TEST_CASE("Program modifying functions work as expected", "[Program]") {
     SECTION("calc_above_weight works as expected") {
         REQUIRE(base.get_above_weight() == 24);
     }
+
+    SECTION("check balance works as intended") {
+        REQUIRE(base.is_balanced() == false);
+        REQUIRE(c_one.is_balanced() == false);
+
+        base.check_balance();
+        c_one.check_balance();
+        
+        REQUIRE(base.is_balanced() == false);
+        REQUIRE(c_one.is_balanced() == true);
+    }
 }

@@ -19,6 +19,9 @@ public:
 
     void set_base();
     void establish_weights();
+    void establish_balance();
+
+    const Program* find_imbalance_source(const Program* p);
 
     size_t tower_size() const { return tower.size(); }
 
