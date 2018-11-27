@@ -15,14 +15,12 @@ public:
 
     Program* add_program(Program_data& data);
     Program* add_program(std::string& n);
-    Program* get_base() const { return base; }
-
     void set_base();
+
     void establish_weights();
     void establish_balance();
 
-    const Program* find_imbalance_source(const Program* p);
-
+    Program* get_base() const { return base; }
     size_t tower_size() const { return tower.size(); }
 
     void print_tower() const;

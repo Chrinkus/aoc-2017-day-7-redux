@@ -22,7 +22,7 @@ void Tower::set_base()
     base = p;
 }
 
-void Tower::establish_weights()
+void Tower::establish_weights() 
 {
     base->calc_above_weight();
 }
@@ -33,19 +33,10 @@ void Tower::establish_balance()
         program.check_balance();
 }
 
-const Program* Tower::find_imbalance_source(const Program* p)
-{
-    for (const auto p_child : p->get_children())
-        if (!p_child->is_balanced())
-            return find_imbalance_source(p_child);
-
-    return p;
-}
-
 void Tower::print_tower() const
 {
-    for (const auto& p : tower)
-        std::cout << p << '\n';
+    std::for_each(std::begin(tower), std::end(tower),
+            [](const Program& prog) { std::cout << prog << '\n'; });
 }
 
 // * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 

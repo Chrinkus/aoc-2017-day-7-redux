@@ -53,7 +53,7 @@ void Program::check_balance()
 {
     if (children.size() == 0 ||
             above_weight == static_cast<int>(children.size()) *
-                children.front()->get_weight())
+                children.front()->total_weight())
         balanced = true;
     else
         balanced = false;
@@ -65,6 +65,7 @@ std::ostream& operator<<(std::ostream& os, const Program& prog)
     os << prog.get_name() << " (" << prog.get_weight() << ") [";
     for (const auto p_child : prog.get_children())
         os << p_child->get_name() << ' ';
-    os << "] Above: (" << prog.get_above_weight() << ')';
+    os << "] Above: (" << prog.get_above_weight() << ") Bal: "
+       << prog.is_balanced();
     return os;
 }
